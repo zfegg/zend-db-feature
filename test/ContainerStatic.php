@@ -1,10 +1,10 @@
 <?php
 
 namespace ZfeggTest\Db\TableGateway;
+
 use Zend\Db\Adapter\AdapterAbstractServiceFactory;
 use Zend\ServiceManager\ServiceManager;
 use Zfegg\Db\TableGateway\Factory\TableGatewayAbstractServiceFactory;
-
 
 /**
  * Class ContainerStatic

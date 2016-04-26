@@ -105,7 +105,7 @@ class TableGatewayAbstractServiceFactory implements AbstractFactoryInterface
                     $config['table'],
                     $dbAdapter, $table->getSql()
                 );
-            } else if (is_object($config['row'])) {
+            } elseif (is_object($config['row'])) {
                 $rowGatewayPrototype = $config['row'];
             } else {
                 throw new \InvalidArgumentException('Error row argument');

@@ -1,13 +1,13 @@
 <?php
 
 namespace ZfeggTest\Db\TableGateway\Feature;
+
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\RowGateway\RowGateway;
 use Zend\Db\Sql\Select;
 use Zend\Paginator\Paginator;
 use Zend\Stdlib\ArrayObject;
 use ZfeggTest\Db\TableGateway\ContainerStatic;
-
 
 /**
  * Class CommonCallFeatureTest

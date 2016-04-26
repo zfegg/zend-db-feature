@@ -12,7 +12,6 @@ use Zend\Paginator\Adapter\Callback;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 
-
 /**
  * Class CommonCallFeature
  *
@@ -22,7 +21,7 @@ use Zend\Paginator\Paginator;
  */
 class CommonCallFeature extends AbstractFeature
 {
-    protected $primary = array();
+    protected $primary = [];
 
     public function __construct($primary)
     {
@@ -50,7 +49,7 @@ class CommonCallFeature extends AbstractFeature
      */
     public function find($args)
     {
-        $where = array();
+        $where = [];
         foreach ($this->primary as $key => $primary) {
             $where[$primary] = isset($args[$key]) ? $args[$key] : null;
         }
@@ -99,15 +98,16 @@ class CommonCallFeature extends AbstractFeature
                         $resultSet = $this->getResultSetPrototype() ? clone $this->getResultSetPrototype() : new ResultSet();
                         $resultSet->initialize($result);
                         return $resultSet;
-                    }, function () use ($select, &$count) {
-                    if ($count === null) {
-                        $select = clone $select;
-                        $select->columns(array('Zfegg_Db_Count' => new Expression('count(1)')));
-                        $result = $this->sql->prepareStatementForSqlObject($select)->execute()->current();
-                        $count  = $result['Zfegg_Db_Count'];
+                    },
+                    function () use ($select, &$count) {
+                        if ($count === null) {
+                            $select = clone $select;
+                            $select->columns(['Zfegg_Db_Count' => new Expression('count(1)')]);
+                            $result = $this->sql->prepareStatementForSqlObject($select)->execute()->current();
+                            $count  = $result['Zfegg_Db_Count'];
+                        }
+                        return $count;
                     }
-                    return $count;
-                }
                 );
             }
         }
@@ -138,7 +138,7 @@ class CommonCallFeature extends AbstractFeature
             $select->where($where);
         }
 
-        $select->columns(array('Zfegg_Db_Count' => new Expression('count(1)')));
+        $select->columns(['Zfegg_Db_Count' => new Expression('count(1)')]);
         $result = $this->sql->prepareStatementForSqlObject($select)->execute()->current();
         return $result['Zfegg_Db_Count'];
     }
@@ -158,7 +158,7 @@ class CommonCallFeature extends AbstractFeature
 
         $key = $args[0];
 
-        return $this->tableGateway->delete(array($this->primary[0] => $key));
+        return $this->tableGateway->delete([$this->primary[0] => $key]);
     }
 
 
@@ -200,12 +200,12 @@ class CommonCallFeature extends AbstractFeature
         $data = $args[0];
 
         $insert = false;
-        $where  = array();
+        $where  = [];
 
         $temp = $this->columns ? array_intersect_key($data, array_flip($this->columns)) : $data;
         if (method_exists($temp, 'getArrayCopy')) {
             $temp = $temp->getArrayCopy();
-        } else if (method_exists($temp, 'toArray')) {
+        } elseif (method_exists($temp, 'toArray')) {
             $temp = $temp->toArray();
         }
 
@@ -216,7 +216,9 @@ class CommonCallFeature extends AbstractFeature
         foreach ($this->primary as $primary) {
             if (empty($temp[$primary])) {
                 $insert = true;
-                if (isset($temp[$primary])) unset($temp[$primary]);
+                if (isset($temp[$primary])) {
+                    unset($temp[$primary]);
+                }
                 break;
             }
             $where[$primary] = $temp[$primary];
@@ -237,13 +239,13 @@ class CommonCallFeature extends AbstractFeature
 
     public function getMagicMethodSpecifications()
     {
-        return array(
+        return [
             'create',
             'deletePrimary',
             'fetchCount',
             'fetchPaginator',
             'find',
             'save',
-        );
+        ];
     }
 }
