@@ -31,6 +31,8 @@ $container->setService('config', [
           'row' => true, //true will call `$table->getResultSetPrototype()->setArrayObjectPrototype(Zend\Db\RowGateway\RowGateway);`
           //'row' => 'MyApp\\Model\\UserEntity', //set custom ArrayObjectPrototype
           'primary' => 'id',
+          //'schema' => 'test',
+          //'adapter' => 'db', //Set TableGateway adapter `$container->get($config['adapter'] ?: 'db'])`
       ]
   ],
   'db' => [
