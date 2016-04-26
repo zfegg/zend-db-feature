@@ -1,0 +1,29 @@
+{
+    "name": "zfegg/zend-db-feature",
+    "description": "Zendframework/zend-db TableGateway features.",
+    "require": {
+        "zendframework/zend-db": "^2.6.2"
+    },
+    "require-dev": {
+        "zendframework/zend-paginator": "^2.5.0",
+        "zendframework/zend-servicemanager": "^3.0",
+        "phpunit/phpunit": "^4.8",
+        "squizlabs/php_codesniffer": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Zfegg\\Db\\TableGateway\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ZfeggTest\\Db\\TableGateway\\": "test/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Moln",
+            "email": "moln.xie@gmail.com"
+        }
+    ]
+}
