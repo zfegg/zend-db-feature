@@ -19,7 +19,7 @@ Zend db features
 下面介绍使用和配置
 
 
-#### 确认`ServiceManager` 中以下两个抽象工厂类，以`module.config.php`为例子：
+#### 1. 确认`ServiceManager` 中以下两个抽象工厂类，以`module.config.php`为例子：
  
 ```php
 use Zfegg\Db\TableGateway\Factory\TableGatewayAbstractServiceFactory;
@@ -35,7 +35,7 @@ return [
 ];
 ```
 
-#### 数据库配置,`Zend\Db\Adapter\AdapterAbstractServiceFactory` 实现了多DbAdapter(数据库适配器)的获取.
+#### 2. 数据库配置,`Zend\Db\Adapter\AdapterAbstractServiceFactory` 实现了多DbAdapter(数据库适配器)的获取.
 
 ```php
 return [
@@ -78,7 +78,7 @@ $serviceManager->get('db.name1');
 $serviceManager->get('db.name2');
 ```
 
-#### `TableGatewayAbstractServiceFactory`, 实现了多表的配置:
+#### 3. `TableGatewayAbstractServiceFactory`, 实现了多表的配置:
 
 ```php
 return [
@@ -92,7 +92,7 @@ return [
          'table' => 'users',  //Table name
          'invokable' => 'MyApp\\Model\\UserTable', //需要实例返回某个类，类必须是继承 `AbstractTableGateway`
       ],
-      'Demo3Table' => [
+      Demo3Table::class => [
           'table' => 'users',  //Table name
           'row' => true, //true will call `$table->getResultSetPrototype()->setArrayObjectPrototype(Zend\Db\RowGateway\RowGateway);`
           //'row' => 'MyApp\\Model\\UserEntity', //set custom ArrayObjectPrototype
@@ -102,7 +102,15 @@ return [
 ];
 ```
 
-#### 使用实例
+在 `ServiceManager` 中获取方式:
+
+```php
+$serviceManager->get('Demo1Table'); //Instance of Zend\Db\TableGateway
+$serviceManager->get('Demo2Table'); //Instance of MyApp\Model\UserTable
+$serviceManager->get(Demo3Table::class); //Instance of Zend\Db\TableGateway
+```
+
+#### 4. 使用实例
 
 ~~~php
 use Zfegg\Db\TableGateway\Factory\TableGatewayAbstractServiceFactory;
