@@ -2,7 +2,6 @@
 
 namespace Zfegg\Db\TableGateway;
 
-
 /**
  * Class Module
  * @package Zfegg\Db

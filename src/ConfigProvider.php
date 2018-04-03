@@ -3,7 +3,6 @@
 
 namespace Zfegg\Db\TableGateway;
 
-
 class ConfigProvider
 {
     public function __invoke()

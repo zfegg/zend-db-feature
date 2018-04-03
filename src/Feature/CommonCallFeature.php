@@ -35,8 +35,8 @@ class CommonCallFeature extends AbstractFeature
 
     public function postInitialize()
     {
-        $this->sql     = $this->tableGateway->sql;
-        $this->table   = $this->tableGateway->getTable();
+        $this->sql = $this->tableGateway->sql;
+        $this->table = $this->tableGateway->getTable();
         $this->adapter = $this->tableGateway->getAdapter();
     }
 
@@ -84,28 +84,42 @@ class CommonCallFeature extends AbstractFeature
             }
 
             if (count($select->getRawState(Select::GROUP))) {
-                $adapter = new DbSelect($select, $this->getAdapter(), $this->getResultSetPrototype());
+                $adapter = new DbSelect(
+                    $select,
+                    $this->getAdapter(),
+                    $this->getResultSetPrototype()
+                );
             } else {
-                $count   = null;
+                $count = null;
                 $adapter = new Callback(
                     function ($offset, $itemCountPerPage) use ($select) {
                         $select->offset($offset);
                         $select->limit($itemCountPerPage);
 
-                        $statement = $this->sql->prepareStatementForSqlObject($select);
-                        $result    = $statement->execute();
+                        $statement =
+                            $this->sql->prepareStatementForSqlObject($select);
+                        $result = $statement->execute();
 
-                        $resultSet = $this->getResultSetPrototype() ? clone $this->getResultSetPrototype() : new ResultSet();
+                        $resultSet = $this->getResultSetPrototype()
+                            ? clone $this->getResultSetPrototype()
+                            : new ResultSet();
                         $resultSet->initialize($result);
+
                         return $resultSet;
                     },
                     function () use ($select, &$count) {
                         if ($count === null) {
                             $select = clone $select;
-                            $select->columns(['Zfegg_Db_Count' => new Expression('count(1)')]);
-                            $result = $this->sql->prepareStatementForSqlObject($select)->execute()->current();
-                            $count  = $result['Zfegg_Db_Count'];
+                            $select->columns(
+                                ['Zfegg_Db_Count' => new Expression('count(1)')]
+                            );
+                            $result = $this->sql
+                                ->prepareStatementForSqlObject($select)
+                                ->execute()
+                                ->current();
+                            $count = $result['Zfegg_Db_Count'];
                         }
+
                         return $count;
                     }
                 );
@@ -139,7 +153,10 @@ class CommonCallFeature extends AbstractFeature
         }
 
         $select->columns(['Zfegg_Db_Count' => new Expression('count(1)')]);
-        $result = $this->sql->prepareStatementForSqlObject($select)->execute()->current();
+        $result = $this->sql->prepareStatementForSqlObject($select)
+            ->execute()
+            ->current();
+
         return $result['Zfegg_Db_Count'];
     }
 
@@ -148,12 +165,15 @@ class CommonCallFeature extends AbstractFeature
      * Delete row by Primary.
      *
      * @param $args
+     *
      * @return int
      */
     public function deletePrimary($args)
     {
-        if (!isset($args[0])) {
-            throw new \InvalidArgumentException('Invalid deletePrimary argument.');
+        if (! isset($args[0])) {
+            throw new \InvalidArgumentException(
+                'Invalid deletePrimary argument.'
+            );
         }
 
         $key = $args[0];
@@ -170,17 +190,23 @@ class CommonCallFeature extends AbstractFeature
      */
     public function create(array $args)
     {
-        if (!isset($args[0])) {
+        if (! isset($args[0])) {
             throw new \InvalidArgumentException('Invalid create argument.');
         }
 
         $row = $args[0];
 
-        $result = clone $this->tableGateway->getResultSetPrototype()->getArrayObjectPrototype();
-        if (!$result instanceof RowGatewayInterface) {
-            throw new \RuntimeException('ArrayObject Prototype is not instanceof RowGatewayInterface');
+        $result = clone $this->tableGateway->getResultSetPrototype()
+            ->getArrayObjectPrototype();
+        if (! $result instanceof RowGatewayInterface) {
+            throw new \RuntimeException(
+                'ArrayObject Prototype is not instanceof RowGatewayInterface'
+            );
         }
-        $row && $result->populate($row + $result->toArray(), isset($row[$this->getPrimary()[0]]));
+        $row && $result->populate(
+            $row + $result->toArray(),
+            isset($row[$this->getPrimary()[0]])
+        );
 
         return $result;
     }
@@ -188,21 +214,25 @@ class CommonCallFeature extends AbstractFeature
 
     /**
      * @param $args
+     *
      * @return int
      * @throws \RuntimeException
      */
     public function save($args)
     {
-        if (!isset($args[0])) {
+        if (! isset($args[0])) {
             throw new \InvalidArgumentException('Invalid save argument.');
         }
 
         $data = $args[0];
 
         $insert = false;
-        $where  = [];
+        $where = [];
 
-        $temp = $this->columns ? array_intersect_key($data, array_flip($this->columns)) : $data;
+        $temp = $this->columns ? array_intersect_key(
+            $data,
+            array_flip($this->columns)
+        ) : $data;
         if (method_exists($temp, 'getArrayCopy')) {
             $temp = $temp->getArrayCopy();
         } elseif (method_exists($temp, 'toArray')) {
@@ -210,7 +240,9 @@ class CommonCallFeature extends AbstractFeature
         }
 
         if (empty($this->primary)) {
-            throw new \RuntimeException('Empty primary, can\'t use save() method.');
+            throw new \RuntimeException(
+                'Empty primary, can\'t use save() method.'
+            );
         }
 
         foreach ($this->primary as $primary) {
@@ -228,12 +260,15 @@ class CommonCallFeature extends AbstractFeature
         if ($insert) {
             $result = $this->tableGateway->insert($temp);
 
-            if (count($this->primary) == 1 && $id = $this->tableGateway->getLastInsertValue()) {
+            if (count($this->primary) == 1
+                && $id = $this->tableGateway->getLastInsertValue()
+            ) {
                 $data[$primary] = $this->tableGateway->getLastInsertValue();
             }
         } else {
             $result = $this->tableGateway->update((array)$temp, $where);
         }
+
         return $result;
     }
 

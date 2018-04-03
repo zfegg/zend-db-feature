@@ -2,7 +2,6 @@
 
 namespace Zfegg\Db\TableGateway;
 
-
 class ConfigProviderTest extends \PHPUnit_Framework_TestCase
 {
 
