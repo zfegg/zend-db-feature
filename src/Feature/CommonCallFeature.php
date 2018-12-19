@@ -83,7 +83,9 @@ class CommonCallFeature extends AbstractFeature
                 $select->where($where);
             }
 
-            if (count($select->getRawState(Select::GROUP))) {
+            $groupRawState = $select->getRawState(Select::GROUP);
+
+            if ($groupRawState && count($groupRawState)) {
                 $adapter = new DbSelect(
                     $select,
                     $this->getAdapter(),
