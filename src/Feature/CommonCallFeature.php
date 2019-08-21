@@ -38,6 +38,7 @@ class CommonCallFeature extends AbstractFeature
         $this->sql = $this->tableGateway->sql;
         $this->table = $this->tableGateway->getTable();
         $this->adapter = $this->tableGateway->getAdapter();
+        $this->resultSetPrototype = $this->tableGateway->getResultSetPrototype();
     }
 
     /**
@@ -92,6 +93,7 @@ class CommonCallFeature extends AbstractFeature
                     $this->getResultSetPrototype()
                 );
             } else {
+                // "SELECT COUNT(1) FROM table" instead of default "SELECT COUNT(1) FROM (SELECT * FROM table)"
                 $count = null;
                 $adapter = new Callback(
                     function ($offset, $itemCountPerPage) use ($select) {
