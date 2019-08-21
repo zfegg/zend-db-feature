@@ -38,12 +38,9 @@ class ContainerStatic
                 'db' => [
                     'adapters' => [
                         'db' => [
-                            'driver'   => 'pdo_mysql',
-                            'host'     => 'localhost',
-                            'database' => 'test',
-                            'username' => 'root',
-                            'password' => '',
-                            'charset'  => 'utf8',
+                            'driver'  => 'pdo',
+                            'dsn'     => 'sqlite:' . __DIR__ . '/data/user.db',
+                            'charset' => 'utf8',
                         ],
                     ]
                 ]
