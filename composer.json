@@ -1,6 +1,7 @@
 {
     "name": "zfegg/zend-db-feature",
     "description": "Zendframework/zend-db TableGateway features.",
+    "license": "MIT",
     "require": {
         "zendframework/zend-db": "^2.6.2"
     },
