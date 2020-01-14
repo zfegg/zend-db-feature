@@ -2,9 +2,9 @@
 
 namespace ZfeggTest\Db\TableGateway\Factory;
 
-use Zend\Db\Adapter\AdapterAbstractServiceFactory;
-use Zend\Db\TableGateway\TableGateway;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Db\Adapter\AdapterAbstractServiceFactory;
+use Laminas\Db\TableGateway\TableGateway;
+use Laminas\ServiceManager\ServiceManager;
 use Zfegg\Db\TableGateway\Factory\TableGatewayAbstractServiceFactory;
 use ZfeggTest\Db\TableGateway\ContainerStatic;
 

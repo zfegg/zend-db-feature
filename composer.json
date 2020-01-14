@@ -1,15 +1,19 @@
 {
     "name": "zfegg/zend-db-feature",
     "description": "Zendframework/zend-db TableGateway features.",
+    "license": "MIT",
     "require": {
-        "zendframework/zend-db": "^2.6.2"
+        "laminas/laminas-db": "^2.6.2"
     },
     "keywords": [
-        "zend", "db", "feature", "zfegg"
+        "zend",
+        "db",
+        "feature",
+        "zfegg"
     ],
     "require-dev": {
-        "zendframework/zend-paginator": "^2.5.0",
-        "zendframework/zend-servicemanager": "^3.0",
+        "laminas/laminas-paginator": "^2.5.0",
+        "laminas/laminas-servicemanager": "^3.0",
         "phpunit/phpunit": "^4.8",
         "squizlabs/php_codesniffer": "^2.6"
     },

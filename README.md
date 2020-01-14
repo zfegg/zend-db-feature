@@ -23,7 +23,7 @@ Zend db features
  
 ```php
 use Zfegg\Db\TableGateway\Factory\TableGatewayAbstractServiceFactory;
-use Zend\Db\Adapter\AdapterAbstractServiceFactory;
+use Laminas\Db\Adapter\AdapterAbstractServiceFactory;
 
 return [
     'service_manager' => [
@@ -35,7 +35,7 @@ return [
 ];
 ```
 
-#### 2. 数据库配置,`Zend\Db\Adapter\AdapterAbstractServiceFactory` 实现了多DbAdapter(数据库适配器)的获取.
+#### 2. 数据库配置,`Laminas\Db\Adapter\AdapterAbstractServiceFactory` 实现了多DbAdapter(数据库适配器)的获取.
 
 ```php
 return [
@@ -94,7 +94,7 @@ return [
       ],
       Demo3Table::class => [
           'table' => 'users',  //Table name
-          'row' => true, //true will call `$table->getResultSetPrototype()->setArrayObjectPrototype(Zend\Db\RowGateway\RowGateway);`
+          'row' => true, //true will call `$table->getResultSetPrototype()->setArrayObjectPrototype(Laminas\Db\RowGateway\RowGateway);`
           //'row' => 'MyApp\\Model\\UserEntity', //set custom ArrayObjectPrototype
           //'primary' => 'id',
       ]
@@ -105,17 +105,17 @@ return [
 在 `ServiceManager` 中获取方式:
 
 ```php
-$serviceManager->get('Demo1Table'); //Instance of Zend\Db\TableGateway
+$serviceManager->get('Demo1Table'); //Instance of Laminas\Db\TableGateway
 $serviceManager->get('Demo2Table'); //Instance of MyApp\Model\UserTable
-$serviceManager->get(Demo3Table::class); //Instance of Zend\Db\TableGateway
+$serviceManager->get(Demo3Table::class); //Instance of Laminas\Db\TableGateway
 ```
 
 #### 4. 使用实例
 
 ~~~php
 use Zfegg\Db\TableGateway\Factory\TableGatewayAbstractServiceFactory;
-use Zend\Db\Adapter\AdapterAbstractServiceFactory;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Db\Adapter\AdapterAbstractServiceFactory;
+use Laminas\ServiceManager\ServiceManager;
 
 $container = new ServiceManager(); //Zend ServiceManager v3
 $container->configure([
@@ -129,7 +129,7 @@ $container->setService('config', [
       'TestTable' => [
           'table' => 'user',
           //'invokable' => 'MyApp\\Model\\UserTable',
-          'row' => true, //true will call `$table->getResultSetPrototype()->setArrayObjectPrototype(Zend\Db\RowGateway\RowGateway);`
+          'row' => true, //true will call `$table->getResultSetPrototype()->setArrayObjectPrototype(Laminas\Db\RowGateway\RowGateway);`
           //'row' => 'MyApp\\Model\\UserEntity', //set custom ArrayObjectPrototype
           'primary' => 'id',
           //'schema' => 'test',
@@ -165,7 +165,7 @@ $rowGateway->save();
 $total = $table->fetchCount(['email' => 'test@test.com']);
 
 //Fetch to Paginator object
-/** @var \Zend\Paginator\Paginator $paginator */
+/** @var \Laminas\Paginator\Paginator $paginator */
 $paginator = $table->fetchPaginator(['email' => 'test@test.com']);
 
 //SELECT count(1) AS `Zfegg_Db_Count` FROM `user` WHERE `email` = 'test@test.com'
