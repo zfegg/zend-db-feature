@@ -3,11 +3,11 @@
 namespace Zfegg\Db\TableGateway\Factory;
 
 use Interop\Container\ContainerInterface;
-use Zend\Db\Sql\TableIdentifier;
-use Zend\Db\TableGateway\Feature\FeatureSet;
-use Zend\Db\TableGateway\TableGateway;
-use Zend\ServiceManager\AbstractFactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Db\Sql\TableIdentifier;
+use Laminas\Db\TableGateway\Feature\FeatureSet;
+use Laminas\Db\TableGateway\TableGateway;
+use Laminas\ServiceManager\AbstractFactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use Zfegg\Db\TableGateway\Feature\CommonCallFeature;
 
 /**
@@ -84,7 +84,7 @@ class TableGatewayAbstractServiceFactory implements AbstractFactoryInterface
                 throw new \RuntimeException("Class '{$config['class']}' not found ");
             }
 
-            /** @var \Zend\Db\TableGateway\TableGateway $table */
+            /** @var \Laminas\Db\TableGateway\TableGateway $table */
             $table = new $config['class']($config['table'], $dbAdapter, $featureSet);
         } else {
             $table = new TableGateway($config['table'], $dbAdapter, $featureSet);
@@ -92,7 +92,7 @@ class TableGatewayAbstractServiceFactory implements AbstractFactoryInterface
 
         if (isset($config['row'])) {
             if ($config['row'] === true) {
-                $config['row'] = 'Zend\Db\RowGateway\RowGateway';
+                $config['row'] = 'Laminas\Db\RowGateway\RowGateway';
             }
 
             if (is_string($config['row'])) {

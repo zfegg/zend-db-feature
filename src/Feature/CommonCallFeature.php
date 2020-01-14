@@ -2,22 +2,22 @@
 
 namespace Zfegg\Db\TableGateway\Feature;
 
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\RowGateway\RowGatewayInterface;
-use Zend\Db\Sql\Expression;
-use Zend\Db\Sql\Select;
-use Zend\Db\Sql\Where;
-use Zend\Db\TableGateway\Feature\AbstractFeature;
-use Zend\Paginator\Adapter\Callback;
-use Zend\Paginator\Adapter\DbSelect;
-use Zend\Paginator\Paginator;
+use Laminas\Db\ResultSet\ResultSet;
+use Laminas\Db\RowGateway\RowGatewayInterface;
+use Laminas\Db\Sql\Expression;
+use Laminas\Db\Sql\Select;
+use Laminas\Db\Sql\Where;
+use Laminas\Db\TableGateway\Feature\AbstractFeature;
+use Laminas\Paginator\Adapter\Callback;
+use Laminas\Paginator\Adapter\DbSelect;
+use Laminas\Paginator\Paginator;
 
 /**
  * Class CommonCallFeature
  *
  * @author  moln.xie@gmail.com
  *
- * @method \Zend\Db\Adapter\Adapter getAdapter
+ * @method \Laminas\Db\Adapter\Adapter getAdapter
  */
 class CommonCallFeature extends AbstractFeature
 {
@@ -190,7 +190,7 @@ class CommonCallFeature extends AbstractFeature
      * @param $args
      *
      * @throws \RuntimeException
-     * @return \Zend\Db\RowGateway\RowGateway;
+     * @return \Laminas\Db\RowGateway\RowGateway;
      */
     public function create(array $args)
     {

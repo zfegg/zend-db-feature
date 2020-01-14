@@ -2,11 +2,11 @@
 
 namespace ZfeggTest\Db\TableGateway\Feature;
 
-use Zend\Db\ResultSet\ResultSet;
-use Zend\Db\RowGateway\RowGateway;
-use Zend\Db\Sql\Select;
-use Zend\Paginator\Paginator;
-use Zend\Stdlib\ArrayObject;
+use Laminas\Db\ResultSet\ResultSet;
+use Laminas\Db\RowGateway\RowGateway;
+use Laminas\Db\Sql\Select;
+use Laminas\Paginator\Paginator;
+use Laminas\Stdlib\ArrayObject;
 use ZfeggTest\Db\TableGateway\ContainerStatic;
 
 /**
@@ -18,7 +18,7 @@ use ZfeggTest\Db\TableGateway\ContainerStatic;
 class CommonCallFeatureTest extends \PHPUnit_Framework_TestCase
 {
 
-    /** @var \Zend\Db\TableGateway\TableGateway */
+    /** @var \Laminas\Db\TableGateway\TableGateway */
     protected $table;
 
     public function setUp()
@@ -48,7 +48,7 @@ class CommonCallFeatureTest extends \PHPUnit_Framework_TestCase
 
     public function testFetchPaginator()
     {
-        /** @var \Zend\Paginator\Paginator $paginator */
+        /** @var \Laminas\Paginator\Paginator $paginator */
         $paginator = $this->table->fetchPaginator();
 
         $this->assertInstanceOf(Paginator::class, $paginator);

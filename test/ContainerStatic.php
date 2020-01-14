@@ -2,8 +2,8 @@
 
 namespace ZfeggTest\Db\TableGateway;
 
-use Zend\Db\Adapter\AdapterAbstractServiceFactory;
-use Zend\ServiceManager\ServiceManager;
+use Laminas\Db\Adapter\AdapterAbstractServiceFactory;
+use Laminas\ServiceManager\ServiceManager;
 use Zfegg\Db\TableGateway\Factory\TableGatewayAbstractServiceFactory;
 
 /**
